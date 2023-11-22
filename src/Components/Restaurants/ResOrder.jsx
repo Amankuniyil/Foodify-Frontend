@@ -8,12 +8,17 @@ import ResFooter from '../Layout/ResFooter';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../api/axiosConfig';
 import ResSideBar from '../Layout/ResSideBar';
+import { useParams } from 'react-router-dom';
+
+import { useSelector } from 'react-redux';
+import Razorpay from 'react-razorpay';
 
 function ResOrder() {
   const [isLoading, setIsLoading] = useState(true);
   const [restaurantProfileId, setRestaurantProfileId] = useState(null);
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
 
   const statusOptions = ['Order Confirmed', 'Cooking', 'Out for delivery', 'Delivered'];
@@ -65,8 +70,11 @@ function ResOrder() {
 
 
 
+  const user = useSelector((state) => state.user);
+  const { orderId } = useParams(); // Receive the order ID from URL parameters
 
-
+  const [orderResponse, setOrderResponse] = useState(null);
+  
 
 
 
@@ -98,6 +106,25 @@ function ResOrder() {
 
     fetchRestaurantOrders();
   }, []);
+
+  // const cancelOrder = async (orderId) => {
+  //   try {
+  //     const response = await api.post(`orders/cancel/${orderId}/`);
+  //     console.log(response.data);
+  //     // Refresh the order details or redirect to the orders page
+  //   } catch (error) {
+  //     console.error('Error cancelling order:', error);
+  //   }
+  // };
+
+
+  const navigateToCancelPage = (orderId) => {
+    // Navigate to the new page with the order ID as a parameter
+    navigate(`/Restaurant/cancel/${orderId}`);
+  };
+
+
+
 
 
 
@@ -166,6 +193,10 @@ socket.onmessage = (event) => {
                 </p>
                 <br />
               </div>
+
+
+
+              <div>
               <div className="flex justify-between">
                 <p className="text-gray-700">Order-status</p>
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
@@ -190,11 +221,26 @@ socket.onmessage = (event) => {
               </button>
               <Link to={`/orderdetail/${order.id}`}>
                 <button
-                  className="mt-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                  className="mt-4 w-40 ml-5 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                 >
                   View Details
                 </button>
               </Link>
+
+
+              
+
+                {order.status !== 'Cancelled' && (
+                  <button
+                    className="mt-4 w-80 bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+                    onClick={() => navigateToCancelPage(order.id)}
+                  >
+                    Cancel Order
+                  </button>
+                )}
+            </div>
+           
+              
             </div>
           </li>
         ))}

@@ -138,7 +138,7 @@ function Menu() {
             <Card key={foodItem.id} className='w-96'>
               <CardHeader color='blue-gray' className='relative h-56'>
                 <img
-                  src={process.env.REACT_APP_API_BASE_URL + foodItem.image}
+                  src={foodItem.image}
                   alt='card-image'
                 />
               </CardHeader>

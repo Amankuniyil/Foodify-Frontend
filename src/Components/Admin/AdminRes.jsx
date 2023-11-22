@@ -44,7 +44,11 @@ function AdminRes() {
   
 
   return (
+    <div>
+      <Sidebar />
+    
     <div className="flex-grow">
+    <p className='mb-3 text-center text-2xl underline mt-6'>Restaurant Details</p>
       {loading ? (
         // Loading component or placeholder
         <Loading />
@@ -52,14 +56,19 @@ function AdminRes() {
         <div className="px-6 pt-6 ">
           <div className="relative  shadow-md sm:rounded-lg">
             <div className='ml-10 mt-5 mb-10'>
-            <p className="mb-2 text-xl">User ID: {profileId} -  <button
-              onClick={() => handleRegister(profileId)}
-              className="font-medium text-blue-600  dark:text-blue-500 hover:underline md:ml-2"
-            >
-              {restaurantDetails.is_registered ? 'Unblock' : 'Block'}
-            </button></p>
+           
+            <p className='mb-3 text-center text-2xl  mt-6'>{restaurantDetails.restaurant_name}</p>
+            <p className="mb-2 text-xl">User ID: {profileId} - <button
+  onClick={() => handleRegister(profileId)}
+  className="font-medium text-blue-600 dark:text-blue-500 hover:underline md:ml-2"
+>
+  {restaurantDetails.is_register ? 'Register' : 'Cancel Registration'}
+</button></p>
+
+
 
             <h2 className="text-2xl font-semibold mb-4">{restaurantDetails.restaurant}</h2>
+           
             <p className="mb-2 text-xl">City: {restaurantDetails.city}</p>
             <p className="mb-2 text-xl">Year of Experience: {restaurantDetails.year_of_experience}</p>
             <p className="mb-2 text-xl">Registration Number: {restaurantDetails.registration_number}</p>
@@ -109,16 +118,13 @@ function AdminRes() {
           </div>
         </div>
       </div>
-            <button
-              onClick={() => handleRegister(profileId)}
-              className="font-medium text-blue-600 dark:text-blue-500 hover:underline md:ml-2"
-            >
-              {restaurantDetails.is_registered ? 'Unblock' : 'Block'}
-            </button>
+
+
             {/* Add more details as needed */}
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 }

@@ -87,12 +87,20 @@ function AdminUserManagement() {
   };
 
   return (
-    <div className="flex">
-      <Sidebar />
-      <section className="container mx-auto p-6 font-mono">
+
+    <div className=''><Sidebar />
+    <div className="flex m-4 shadow-md">
+    
+      
+      <section className="container mx-auto p-6 ">
+        <p className='mb-5 text-center text-2xl underline'>User Management</p>
+      
         <div className="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+        
+          
           <div className="w-full overflow-x-auto">
             <table className="w-full">
+            
               <thead>
                 <tr className="text-md font-semibold tracking-wide text-left text-white bg-black uppercase border-b border-white-600">
                   <th className="px-4 py-3">Username</th>
@@ -141,6 +149,7 @@ function AdminUserManagement() {
           </div>
         </div>
       </section>
+    </div>
     </div>
   );
 }

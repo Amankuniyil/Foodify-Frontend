@@ -43,7 +43,7 @@ function Order() {
         order_total:orderTotal,
       };
 
-      const response = await api.post('http://127.0.0.1:8000/orders/create/', data);
+      const response = await api.post('orders/create/', data);
       const orderId = response.data.orderId;
       console.log('orderId:',orderId);
 
@@ -62,7 +62,7 @@ function Order() {
     async function fetchCartItems() {
       setIsLoading(true);
       try {
-        const response = await api.get('http://127.0.0.1:8000/cart/items');
+        const response = await api.get('cart/items');
         setCartItems(response.data.cart_items);
       } catch (error) {
         console.error('Error fetching cart items', error);
@@ -73,7 +73,7 @@ function Order() {
 
     async function fetchUserAddresses() {
       try {
-        const response = await api.get(`http://127.0.0.1:8000/orders/get-addresses/?user=${userId}`);
+        const response = await api.get(`orders/get-addresses/?user=${userId}`);
         setAddresses(response.data);
       } catch (error) {
         console.error('Error fetching addresses', error);

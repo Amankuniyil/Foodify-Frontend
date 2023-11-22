@@ -7,6 +7,7 @@ import Loading from '../Layout/Loading';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../api/axiosConfig';
 import ResSideBar from '../Layout/ResSideBar';
+import Sidebar from '../Layout/AdminSideBar';
 
 function AdminOrders() {
   const [isLoading, setIsLoading] = useState(true);
@@ -45,6 +46,9 @@ function AdminOrders() {
 
   return (
     <div>
+        <Sidebar />
+    <div className='m-4 shadow-md p-4'>
+    
 
       <h1 className="mb-10 text-center text-2xl font-bold">Restaurant Orders</h1>
 
@@ -104,6 +108,7 @@ function AdminOrders() {
           </li>
         ))}
       </ul>
+    </div>
     </div>
   );
 }

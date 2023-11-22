@@ -32,7 +32,7 @@ function Cart() {
 
   async function handleDeleteCartItem(cartItemId) {
     try {
-      await api.delete(`http://127.0.0.1:8000/cart/items/${cartItemId}`);
+      await api.delete(`cart/items/${cartItemId}`);
       // Update the cartItems state to reflect the item deletion
       setCartItems(cartItems.filter(item => item.id !== cartItemId));
     } catch (error) {
@@ -42,7 +42,7 @@ function Cart() {
   async function handleAddCartItem(cartItemId) {
     try {
       // Construct the URL with cartItemId and use the correct endpoint path
-      await api.post(`http://127.0.0.1:8000/cart/addq/${cartItemId}/`);
+      await api.post(`cart/addq/${cartItemId}/`);
   
       // Find the item in the cartItems array and update its quantity
       const updatedCartItems = cartItems.map((item) => {
@@ -65,7 +65,7 @@ function Cart() {
   async function handleMinusCartItem(cartItemId) {
     try {
       // Construct the URL with cartItemId and use the correct endpoint path
-      await api.post(`http://127.0.0.1:8000/cart/minus/${cartItemId}/`);
+      await api.post(`cart/minus/${cartItemId}/`);
       // Update the cartItems state to reflect the item addition
       const updatedCartItems = cartItems.map((item) => {
         if (item.id === cartItemId) {
@@ -128,7 +128,7 @@ function Cart() {
                 <div key={cartItem.id}>
                   <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
                     <img
-                      src={process.env.REACT_APP_API_BASE_URL + cartItem.food_item.image}
+                      src={cartItem.food_item.image}
                       alt="card-image"
                       style={{ width: '200px', height: '150px' }}
                     />

@@ -6,6 +6,7 @@ import RestaurantHome from '../Components/Restaurants/RestaurantHome'
 import OrderDetail from '../Components/Restaurants/OrderDetail'
 import ResChart from '../Components/Layout/ResChart'
 import ResProfile from '../Components/Restaurants/ResProfile'
+import CancelOrder from '../Components/Restaurants/CancelOrder'
 
 
 import ResOrder from '../Components/Restaurants/ResOrder'
@@ -20,6 +21,7 @@ function RestaurantRouter() {
         <Route path="/register" element={<RestaurantRegister />} />
         <Route path="/resorders" element={<ResOrder />} />
         <Route path="/orderdetail/:orderId" element={<OrderDetail />} />
+        <Route path="/cancel/:orderId" element={<CancelOrder />} />
         <Route path="/" element={<RestaurantHome />} />
         <Route path="/pending" element={<RestaurantHome />} />
         <Route path="/menu" element={<Menu />} />

@@ -66,8 +66,10 @@ function AdminResManagement() {
   
 
   return (
-    <div className="flex">
-      <Sidebar />
+    <div><Sidebar />
+     <p className='mb-3 text-center text-2xl underline mt-6'>Restaurant Management</p>
+    <div className="flex m-4 shadow-md">
+      
 
       <div className="flex-grow ml-4">
         {loading ? (
@@ -121,6 +123,7 @@ function AdminResManagement() {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 }

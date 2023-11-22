@@ -170,7 +170,7 @@ function Home() {
             <div> <Card className="w-full max-w-[26rem] shadow-lg  border border-solid border-yellow-500 p-4 ">
       <CardHeader floated={false} color="blue-gray">
         <img
-          src={process.env.REACT_APP_API_BASE_URL + profile.image}
+          src={profile.image}
           alt="ui/ux review check"
         />
         <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 " />
