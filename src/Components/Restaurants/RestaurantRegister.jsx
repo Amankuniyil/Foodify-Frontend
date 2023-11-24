@@ -60,7 +60,7 @@ function RestaurantRegister() {
             });
         
             if (response.status === 200) {
-                navigate('/Restaurant/pendning');
+                navigate('/Restaurant/pending');
                 toast.success('Registration Success')
             } else {
                 toast.error('Registration failed. Please try again.');
@@ -168,6 +168,7 @@ function RestaurantRegister() {
                                     />
                                 </div>
                             </div>
+                           
 
                             <input
                                 type="text"
@@ -176,6 +177,7 @@ function RestaurantRegister() {
                                 onChange={(e) => setOpen(e.target.value)}
                                 className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
                             />
+                             <p>Prophile Photo</p>
 
                             <input
                                 type="file"
@@ -183,18 +185,21 @@ function RestaurantRegister() {
                                 onChange={(e) => setProfilePhoto(e.target.files[0])}
                                 className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
                             />
+                            <p>Image</p>
                             <input
                                 type="file"
                                 accept="image/*"
                                 onChange={(e) => setImage(e.target.files[0])}
                                 className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
                             />
+                            <p>License</p>
                             <input
                                 type="file"
                                 accept="image/*"
                                 onChange={(e) => setLicense(e.target.files[0])}
                                 className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
                             />
+                            <p>Fssai</p>
                             <input
                                 type="file"
                                 accept="image/*"

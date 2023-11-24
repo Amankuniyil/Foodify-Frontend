@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api/axiosConfig';
 import Sidebar from '../Layout/AdminSideBar';
+import BlockUnblockModal from '../Layout/BlockUnblockModal'; // Adjust the path based on your project structure
+
 
 function AdminUserManagement() {
   const [userProfiles, setUserProfiles] = useState([]);
@@ -10,6 +12,7 @@ function AdminUserManagement() {
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [acceptedFreelancers, setAcceptedFreelancers] = useState([]);
   const [userSearchInput, setUserSearchInput] = useState('');
+
 
   useEffect(() => {
     async function fetchData() {
@@ -28,9 +31,8 @@ function AdminUserManagement() {
 
   const handleBlockUnblock = async (userId) => {
     try {
-      // const response = await api.put(`admin/blockuser/${userId}/`);
       const response = await api.put(`accounts/user/${userId}/`);
-  
+    
       if (response.status === 200) {
         const updatedUserList = userProfiles.map((profile) =>
           profile.user.id === userId
@@ -39,8 +41,8 @@ function AdminUserManagement() {
         );
   
         setUserProfiles(updatedUserList);
-        closeUserModal();
         setBlockAction(!blockAction);
+        closeUserModal(); // Close the modal after successful action
       }
   
       console.log('Block/Unblock response:', response);
@@ -49,6 +51,17 @@ function AdminUserManagement() {
     }
   };
   
+
+  const openUserModal = (userId, blockAction) => {
+    setSelectedUserId(userId);
+    setBlockAction(blockAction);
+    setIsUserModalOpen(true);
+  };
+
+  const closeUserModal = () => {
+    setIsUserModalOpen(false);
+  };
+
 
   // const handleToggleAvailability = async (foodItemId) => {
   //   try {
@@ -76,15 +89,15 @@ function AdminUserManagement() {
   //   }
   // };
 
-  const openUserModal = (userId, blockAction) => {
-    setSelectedUserId(userId);
-    setBlockAction(blockAction);
-    setIsUserModalOpen(true);
-  };
+  // const openUserModal = (userId, blockAction) => {
+  //   setSelectedUserId(userId);
+  //   setBlockAction(blockAction);
+  //   setIsUserModalOpen(true);
+  // };
 
-  const closeUserModal = () => {
-    setIsUserModalOpen(false);
-  };
+  // const closeUserModal = () => {
+  //   setIsUserModalOpen(false);
+  // };
 
   return (
 
@@ -136,11 +149,20 @@ function AdminUserManagement() {
                     <td className="px-4 py-3 text-sm border">{profile.user.phone_number}</td>
                     <td className="px-4 py-3 text-sm border">
                     <button
-      onClick={() => handleBlockUnblock(profile.user.id)}
-      className="font-medium text-blue-600 dark:text-blue-500 hover:underline md:ml-2"
-    >
-      {profile.user.is_active ? 'Block' : 'Unblock'}
-    </button>
+  onClick={() => {
+    setSelectedUserId(profile.user.id);
+    setBlockAction(profile.user.is_active);
+    setIsUserModalOpen(true);
+  }}
+  className="font-medium text-blue-600 dark:text-blue-500 hover:underline md:ml-2"
+>
+  {profile.user.is_active ? 'Block' : 'Unblock'}
+</button>
+    <BlockUnblockModal
+        isOpen={isUserModalOpen}
+        onRequestClose={closeUserModal}
+        onConfirm={() => handleBlockUnblock(selectedUserId)}
+      />
                     </td>
                   </tr>
                 ))}

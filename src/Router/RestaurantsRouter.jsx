@@ -23,7 +23,7 @@ function RestaurantRouter() {
         <Route path="/orderdetail/:orderId" element={<OrderDetail />} />
         <Route path="/cancel/:orderId" element={<CancelOrder />} />
         <Route path="/" element={<RestaurantHome />} />
-        <Route path="/pending" element={<RestaurantHome />} />
+        <Route path="/pending" element={<Pending />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/reschart" element={<ResChart />} />
         <Route path="/resprofile" element={<ResProfile />} />

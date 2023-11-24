@@ -9,6 +9,7 @@ import ResChart from '../Layout/ResChart';
 import { Link, NavLink, useLocation ,useNavigate} from 'react-router-dom';
 import './Home.css';
 
+
 function RestaurantHome() {
 
    const [isLoading, setIsLoading] = useState(true);
@@ -16,19 +17,27 @@ function RestaurantHome() {
    const [orders, setOrders] = useState([]);
    const [error, setError] = useState(null);
    const [isRegistered, setIsRegistered] = useState(false);
+   const navigate = useNavigate();
 
    useEffect(() => {
-     // Make an API request to check registration status using Axios
-     api.get('restaurant/check-registration') // Replace with your actual API endpoint
-       .then((response) => {
-         const data = response.data;
-         setIsRegistered(data.isRegistered);
-       })
-       .catch((error) => {
-         // console.error('Error checking registration:', error);
-         // toast.error('Error checking registration. Please try again.');
-       });
-   }, []);
+      api.get('restaurant/get-res-profile/')
+        .then((response) => {
+          const data = response.data;
+          setIsRegistered(data.is_registered);
+          if (!data.is_registered) {
+            // Redirect to the registration page if not registered
+            navigate('/Restaurant/pending');
+          }
+        })
+        .catch((error) => {
+          // Handle error as needed
+          console.error('Error checking registration:', error);
+          // Optionally show an error message to the user
+          // toast.error('Error checking registration. Please try again.');
+        });
+    }, [navigate]);
+
+
 
 
 
@@ -61,6 +70,20 @@ function RestaurantHome() {
       fetchRestaurantOrders();
     }, []);
   return (
+
+
+       <div>
+      {isRegistered ? (
+        // Render content when registered
+        <>
+
+
+
+
+
+
+
+
 
 <div>
    <nav class="bg-white border-b border-gray-200 fixed z-30 w-full">
@@ -329,6 +352,20 @@ function RestaurantHome() {
    <script async defer src="https://buttons.github.io/buttons.js"></script>
    <script src="https://demo.themesberg.com/windster/app.bundle.js"></script>
 </div>
+
+
+
+  </>
+      ) : (
+        // Render a message when not registered
+        <div className="not-registered-message">
+          <h1>Not Registered Yet</h1>
+          <p>Please complete your registration to access the restaurant home page.</p>
+          {/* You can add a link or button to navigate to the registration page */}
+          <Link to="/registration">Register Now</Link>
+        </div>
+      )}
+    </div>
   );
 }
 

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import api from '../../api/axiosConfig';
 import Loading from '../Layout/Loading';
 import Sidebar from '../Layout/AdminSideBar';
-import { Link, useParams } from 'react-router-dom';
+import BlockUnblockModal from '../Layout/BlockUnblockModal'; // Adjust the path based on your project structure
+import { useParams } from 'react-router-dom';
 
 function AdminRes() {
   const { profileId } = useParams();
   const [restaurantDetails, setRestaurantDetails] = useState({});
   const [loading, setLoading] = useState(true);
+  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
 
   useEffect(() => {
     async function fetchRestaurantDetails() {
@@ -24,8 +26,20 @@ function AdminRes() {
     fetchRestaurantDetails();
   }, [profileId]);
 
-
   const handleRegister = async (profileId) => {
+    try {
+      // Open the registration modal when clicking the button
+      setIsRegistrationModalOpen(true);
+    } catch (error) {
+      console.error('Error updating registration status:', error);
+    }
+  };
+
+  const closeRegistrationModal = () => {
+    setIsRegistrationModalOpen(false);
+  };
+
+  const confirmCancelRegistration = async () => {
     try {
       await api.put(`restaurant/update-registration-status/${profileId}/`, {
         is_register: !restaurantDetails.is_register, // Toggle the value
@@ -36,54 +50,61 @@ function AdminRes() {
         ...prevDetails,
         is_register: !prevDetails.is_register,
       }));
+
+      // Close the modal after successful action
+      closeRegistrationModal();
     } catch (error) {
       console.error('Error updating registration status:', error);
     }
   };
 
-  
-
   return (
     <div>
       <Sidebar />
-    
-    <div className="flex-grow">
-    <p className='mb-3 text-center text-2xl underline mt-6'>Restaurant Details</p>
-      {loading ? (
-        // Loading component or placeholder
-        <Loading />
-      ) : (
-        <div className="px-6 pt-6 ">
-          <div className="relative  shadow-md sm:rounded-lg">
-            <div className='ml-10 mt-5 mb-10'>
-           
-            <p className='mb-3 text-center text-2xl  mt-6'>{restaurantDetails.restaurant_name}</p>
-            <p className="mb-2 text-xl">User ID: {profileId} - <button
-  onClick={() => handleRegister(profileId)}
-  className="font-medium text-blue-600 dark:text-blue-500 hover:underline md:ml-2"
->
-  {restaurantDetails.is_register ? 'Register' : 'Cancel Registration'}
-</button></p>
 
+      <div className="flex-grow">
+        <p className='mb-3 text-center text-2xl underline mt-6'>Restaurant Details</p>
+        {loading ? (
+          // Loading component or placeholder
+          <Loading />
+        ) : (
+          <div className="px-6 pt-6 ">
+            <div className="relative  shadow-md sm:rounded-lg">
+              <div className='ml-10 mt-5 mb-10'>
+                <p className='mb-3 text-center text-2xl  mt-6'>{restaurantDetails.restaurant_name}</p>
+                <p className="mb-2 text-xl">
+                  User ID: {profileId} -{' '}
+                  <button
+                    onClick={handleRegister}
+                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline md:ml-2"
+                  >
+                    {restaurantDetails.is_register ? 'Cancel Registration' : 'Register'}
+                  </button>
+                </p>
 
+                <h2 className="text-2xl font-semibold mb-4">{restaurantDetails.restaurant}</h2>
 
-            <h2 className="text-2xl font-semibold mb-4">{restaurantDetails.restaurant}</h2>
-           
-            <p className="mb-2 text-xl">City: {restaurantDetails.city}</p>
-            <p className="mb-2 text-xl">Year of Experience: {restaurantDetails.year_of_experience}</p>
-            <p className="mb-2 text-xl">Registration Number: {restaurantDetails.registration_number}</p>
-            <p className="mb-2 text-xl">About: {restaurantDetails.about}</p>
-            <p className="mb-2 text-xl">Address: {restaurantDetails.address}</p>
-            <p className="mb-2 text-xl">City: {restaurantDetails.city}</p>
+                <p className="mb-2 text-xl">City: {restaurantDetails.city}</p>
+                <p className="mb-2 text-xl">Year of Experience: {restaurantDetails.year_of_experience}</p>
+                <p className="mb-2 text-xl">Registration Number: {restaurantDetails.registration_number}</p>
+                <p className="mb-2 text-xl">About: {restaurantDetails.about}</p>
+                <p className="mb-2 text-xl">Address: {restaurantDetails.address}</p>
+                <p className="mb-2 text-xl">City: {restaurantDetails.city}</p>
+              </div>
+              <div className="-m-1 flex flex-wrap md:-m-2 ">
+                {/* ... existing code ... */}
+              </div>
             </div>
-            <div className="-m-1 flex flex-wrap md:-m-2 ">
+            <br /><br />
+            <div>
+            <div className="-m-1 flex flex-wrap md:-m-2 text-center">
         <div className="flex w-1/2 md:w-1/3 lg:w-1/4">
           <div className="w-full p-1 md:p-2">
             <p className='mb-10 text-xl'>Image</p>
             <img
               alt="gallery"
               className="block h-full w-full rounded-lg object-cover object-center"
-              src={process.env.REACT_APP_API_BASE_URL + restaurantDetails.image}
+              src={restaurantDetails.image}
             />
           </div>
         </div>
@@ -92,7 +113,7 @@ function AdminRes() {
             <p className='mb-10 text-xl'>FSSAI</p>
             <img
               alt="gallery"
-              src={process.env.REACT_APP_API_BASE_URL + restaurantDetails.fssai}
+              src={restaurantDetails.fssai}
               className="block h-full w-full rounded-lg object-cover object-center"
             />
           </div>
@@ -102,7 +123,7 @@ function AdminRes() {
             <p className='mb-10 text-xl'> License</p>
             <img
               alt="gallery"
-              src={process.env.REACT_APP_API_BASE_URL + restaurantDetails.license}
+              src={restaurantDetails.license}
               className="block h-full w-full rounded-lg object-cover object-center"
             />
           </div>
@@ -112,7 +133,7 @@ function AdminRes() {
             <p className='mb-10 text-xl'>Profile Photo</p>
             <img
               alt="gallery"
-              src={process.env.REACT_APP_API_BASE_URL + restaurantDetails.profile_photo}
+              src={restaurantDetails.profile_photo}
               className="block h-full w-full rounded-lg object-cover object-center"
             />
           </div>
@@ -120,11 +141,17 @@ function AdminRes() {
       </div>
 
 
-            {/* Add more details as needed */}
+            </div>
+
+            {/* Registration Modal */}
+            <BlockUnblockModal
+              isOpen={isRegistrationModalOpen}
+              onRequestClose={closeRegistrationModal}
+              onConfirm={confirmCancelRegistration}
+            />
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
     </div>
   );
 }

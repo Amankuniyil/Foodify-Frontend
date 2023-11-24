@@ -228,7 +228,7 @@ const Signup = () => {
               {allFieldsFilled ? "" : <p className="text-s text-red-500">All fields are required</p>}
             </div>
             <Link to="/login">
-        <button>Signin</button>
+        <button>Already have an Account,Signin</button>
       </Link>
           </div>
         </div>
