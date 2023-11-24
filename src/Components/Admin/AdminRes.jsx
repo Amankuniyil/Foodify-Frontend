@@ -100,7 +100,7 @@ function AdminRes() {
             <div className="-m-1 flex flex-wrap md:-m-2 text-center">
         <div className="flex w-1/2 md:w-1/3 lg:w-1/4">
           <div className="w-full p-1 md:p-2">
-            <p className='mb-10 text-xl'>Image</p>
+            <p className='mb-10 text-xl'>Image </p>
             <img
               alt="gallery"
               className="block h-full w-full rounded-lg object-cover object-center"
