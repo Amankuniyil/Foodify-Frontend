@@ -176,7 +176,7 @@ function ResMenu() {
         </CardHeader>
         <CardBody>
           <Typography variant="h5" color="blue-gray" className="mb-2" style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span>{foodItem.name}</span>
+            <span>{foodItem.name} </span>
             <span>₹ {foodItem.price}</span>
           </Typography>
           <Typography>
