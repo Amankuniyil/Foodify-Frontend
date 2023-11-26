@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ResFooter from '../Layout/ResFooter';
 import ResSideBar from '../Layout/ResSideBar';
+import BlockUnblockModal from '../Layout/BlockUnblockModal';
 import {
   Card,
   CardHeader,
@@ -179,3 +180,5 @@ function Menu() {
 }
 
 export default Menu;
+
+

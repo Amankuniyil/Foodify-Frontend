@@ -42,13 +42,13 @@ function AdminRes() {
   const confirmCancelRegistration = async () => {
     try {
       await api.put(`restaurant/update-registration-status/${profileId}/`, {
-        is_register: !restaurantDetails.is_register, // Toggle the value
+        is_registered: !restaurantDetails.is_registered, // Toggle the value
       });
 
       // Update the local state to reflect the change
       setRestaurantDetails((prevDetails) => ({
         ...prevDetails,
-        is_register: !prevDetails.is_register,
+        is_registered: !prevDetails.is_registered,
       }));
 
       // Close the modal after successful action
@@ -78,11 +78,13 @@ function AdminRes() {
                     onClick={handleRegister}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline md:ml-2"
                   >
-                    {restaurantDetails.is_register ? 'Cancel Registration' : 'Register'}
+                    {restaurantDetails.is_registered  ? 'Cancel Registration' : 'Register'}
                   </button>
                 </p>
 
                 <h2 className="text-2xl font-semibold mb-4">{restaurantDetails.restaurant}</h2>
+                <p>{restaurantDetails.is_register ? 'Cancel Registration' : 'Register'}</p>
+                <p className="mb-2 text-xl">Registered: {restaurantDetails.is_registered}</p>
 
                 <p className="mb-2 text-xl">City: {restaurantDetails.city}</p>
                 <p className="mb-2 text-xl">Year of Experience: {restaurantDetails.year_of_experience}</p>

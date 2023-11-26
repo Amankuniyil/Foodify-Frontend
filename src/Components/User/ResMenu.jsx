@@ -135,7 +135,7 @@ function ResMenu() {
             <div key={profile.id} className="flex items-center bg-white w-screen shadow-md">
               <div className="ml-4">
                 <img
-                  src={process.env.REACT_APP_API_BASE_URL + profile.image}
+                  src={profile.image}
                   alt="Image"
                   className="m-8 6w-40 h-40" // Adjust the width and height as needed
                 />
@@ -170,7 +170,7 @@ function ResMenu() {
       <Card className="w-96">
         <CardHeader color="blue-gray" className="relative h-56">
           <img
-            src={process.env.REACT_APP_API_BASE_URL + foodItem.image}
+            src={foodItem.image}
             alt="card-image"
           />
         </CardHeader>
