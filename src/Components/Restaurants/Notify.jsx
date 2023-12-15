@@ -24,8 +24,10 @@ const Notify = () => {
 
   useEffect(() => {
     // setup chat socket
-    const notifySocket = new WebSocket(`ws://127.0.0.1:8000/ws/notify/${Resid}/`);
-    // const notifySocket = new WebSocket(`ws://127.0.0.1:8000/ws/notify/?resId=${Resid}`)
+    // const notifySocket = new WebSocket(`ws://127.0.0.1:8000/ws/notify/${Resid}/`);
+    const notifySocket = new WebSocket(`ws://foodify-frontend-five.vercel.app/ws/notify/${Resid}/`);
+
+    
 
     // on socket open
     notifySocket.onopen = () => {
