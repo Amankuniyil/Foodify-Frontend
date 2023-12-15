@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ResFooter from '../Layout/ResFooter';
 import ResSideBar from '../Layout/ResSideBar';
+import NotifyPage from '../Layout/Notify';
+import Notify from './Notify';
 import BlockUnblockModal from '../Layout/BlockUnblockModal';
 import {
   Card,
@@ -109,9 +111,14 @@ function Menu() {
 
   return (
     <div>
-    <div className='flex'>
+      <br /><br />
+
+      
+    <div className=' '>
       <ResSideBar />
-      <div className='flex flex-col flex-grow'>
+      
+
+      <div className='flex-col flex-grow min-h-screen'>
         <div className='px-6 pt-6'>
           <h2 className='text-3xl font-bold mb-4'>Restaurant</h2>
           <div className='flex flex-wrap gap-4 '>
@@ -134,10 +141,10 @@ function Menu() {
             )}
           </div>
         </div>
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6 m-10'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6 m-10' >
           {foodList.map((foodItem) => (
-            <Card key={foodItem.id} className='w-96'>
-              <CardHeader color='blue-gray' className='relative h-56'>
+            <Card key={foodItem.id} className='w-96 '>
+              <CardHeader color='blue-gray' className='relative h-56 '>
                 <img
                   src={foodItem.image}
                   alt='card-image'

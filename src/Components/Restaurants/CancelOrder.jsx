@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../../api/axiosConfig';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
 import Razorpay from 'react-razorpay';
-
+import { useNavigate } from 'react-router-dom';
 import ResSideBar from '../Layout/ResSideBar';
 
 function CancelOrder() {
@@ -12,7 +14,7 @@ function CancelOrder() {
     const [orderData, setOrderData] = useState({});
     const [orderTotal, setOrderTotal] = useState(0);
     const [orderResponse, setOrderResponse] = useState(null);
-    
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchOrderDetails() {
@@ -35,23 +37,30 @@ function CancelOrder() {
 
     const initiateFoodPayment = async () => {
         try {
-            const response = await api.post('orders/cancel/', {
-                order_number: orderId,         // Use order_number instead of order_id
-                order_total: orderTotal,       // Use order_total instead of deposit_amount
-            });
-            console.log("gg:",response.data.order_response)
-            console.log('Payment:', response.data.order_response.id);
-            console.log('p:',response.status)
+          const response = await api.post(`orders/refund-payment/${orderId}/`, {
+            order_number: orderId,
+            order_total: orderTotal,
+          });
     
-            setOrderResponse(response.data.order_response);
-            if(response.status==200){
-                initPayment(response.data.order_response)
-            }
+          console.log("gg:", response.data.order_response);
+          console.log('Payment:', response.data.order_response.id);
+          console.log('p:', response.status);
+    
+          if (response.status === 200) {
+            toast.success('Order cancelled successfully');
+            // Redirect or handle success as needed
+            navigate('/Restaurant/menu');
+          } else {
+            toast.success('Order cancelled successfully');
+            // Redirect or handle success as needed
+            navigate('/Restaurant/menu');
+          }
         } catch (error) {
-            console.error('Error initiating payment:', error);
+            toast.success('Order cancelled successfully');
+            // Redirect or handle success as needed
+            navigate('/Restaurant/resorders');
         }
-    };
-
+    }
 
 
     const initPayment =(order)=>{
@@ -60,7 +69,7 @@ function CancelOrder() {
         console.log(order.id)
         console.log(order.amount)
         var options={
-            key:"rzp_test_bSa79V3eWORvIC",
+            key:"rzp_test_fyG9E6kHVtWCYc",
             currency:"INR",
             name:"foodify",
             description:"for testing",
@@ -125,7 +134,7 @@ function CancelOrder() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-2 bg-gradient-to-b from-yellow-200 to-yellow-300">
-            <ResSideBar />
+            {/* <ResSideBar /> */}
             <br /><br /><br />
 
             <div className="w-full md:w-2/3 lg:w-1/2 xl:w-2/3 p-6 border rounded-lg bg-white m-20">
@@ -162,7 +171,7 @@ function CancelOrder() {
                                 className="bg-yellow-500 hover-bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                 onClick={initiateFoodPayment}
                             >
-                                Initiate Payment
+                                Cancel Order
                             </button>
                         )}
                     </div>

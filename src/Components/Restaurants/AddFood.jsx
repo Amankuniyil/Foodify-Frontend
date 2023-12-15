@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../api/axiosConfig';
 import { useNavigate } from 'react-router-dom';
+import Notify from './Notify';
+
 
 function AddFood() {
   const dispatch = useDispatch();
@@ -89,6 +91,7 @@ function AddFood() {
       <br />
       <ResSideBar/>
       <br />
+    
       
 
       

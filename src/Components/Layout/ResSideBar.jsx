@@ -1,10 +1,11 @@
 
 import { Link } from 'react-router-dom';
-
+import NotifyPage from './Notify';
 import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Logout from '../Auth/Logout';
+import Notify from '../Restaurants/Notify';
 
 const ResSideBar = () => {
 
@@ -17,9 +18,12 @@ const ResSideBar = () => {
       className="fixed z-20 h-16 top-0 left-0 flex flex-shrink-0 bg-white w-full border-b border-gray-200 transition-width duration-75"
       aria-label="Sidebar"
     >
+        
+      
       <div className="relative flex-1 flex min-h-0 bg-white pt-0">
         <div className="flex-1 flex pt-5 pb-4">
           <div className="flex-1 px-3 bg-white divide-x space-x-1">
+            
             <ul className="flex space-x-2 pb-2">
               <li>
                 <Link to="/Restaurant/" className="text-base text-gray-900 font-normal p-2 hover:bg-gray-100 flex items-center">
@@ -54,6 +58,7 @@ const ResSideBar = () => {
                   <span className="ml-3 flex-1 whitespace-nowrap">Add Food</span>
                 </Link>
               </li>
+            
               <li>
                 <Link to="/Restaurant/resorders" className="text-base text-gray-900 font-normal p-2 hover:bg-gray-100 flex items-center">
                   <svg
@@ -105,7 +110,10 @@ const ResSideBar = () => {
                   </svg>
                   <span className="ml-3 flex-1 whitespace-nowrap">Profile</span>
                 </Link>
+               
               </li>
+
+
             
               
               <li>
@@ -137,8 +145,10 @@ const ResSideBar = () => {
                                 </div>
                                                 </li>
             </ul>
+          
           </div>
         </div>
+        <Notify/>
       </div>
     </aside>
   );

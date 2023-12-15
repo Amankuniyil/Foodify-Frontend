@@ -17,6 +17,7 @@ import ResMenu from '../Components/User/ResMenu';
 import UserOder from '../Components/User/UserOrder';
 import OrderDetail from '../Components/User/OrderDetail';
 import OtpVerification from '../Components/Auth/OtpVerification';
+import Chat from '../Components/Chat/Chat';
 
 function UserRouter() {
   return (
@@ -38,6 +39,9 @@ function UserRouter() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/payment/success/" element={<PaymentSuccessPage />} />
+
+
+        <Route path="/chat/:profileId" element={<Chat/>} />
       </Routes>
     </>
   );

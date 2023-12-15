@@ -7,7 +7,8 @@ import OrderDetail from '../Components/Restaurants/OrderDetail'
 import ResChart from '../Components/Layout/ResChart'
 import ResProfile from '../Components/Restaurants/ResProfile'
 import CancelOrder from '../Components/Restaurants/CancelOrder'
-
+import ResChat from '../Components/Restaurants/ResChat'
+import Notify from '../Components/Restaurants/Notify'
 
 import ResOrder from '../Components/Restaurants/ResOrder'
 import Menu from '../Components/Restaurants/Menu'
@@ -19,6 +20,7 @@ function RestaurantRouter() {
     <Routes>
 
         <Route path="/register" element={<RestaurantRegister />} />
+        <Route path="/notify" element={<Notify />} />
         <Route path="/resorders" element={<ResOrder />} />
         <Route path="/orderdetail/:orderId" element={<OrderDetail />} />
         <Route path="/cancel/:orderId" element={<CancelOrder />} />
@@ -27,6 +29,8 @@ function RestaurantRouter() {
         <Route path="/menu" element={<Menu />} />
         <Route path="/reschart" element={<ResChart />} />
         <Route path="/resprofile" element={<ResProfile />} />
+
+        <Route path="/reschat/:profileId" element={<ResChat />} />
         
 
         { <Route path="/addfood" element={<App />} /> }

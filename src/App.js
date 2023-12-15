@@ -4,6 +4,10 @@ import RestaurantRouter from './Router/RestaurantsRouter';
 import AdminRouter from './Router/AdminRouter';
 import { useSelector } from 'react-redux';
 import React from 'react';
+import RazorpayComponent from './RazorpayComponent';
+
+
+
 function App() {
   const user = useSelector(state => state.user);
 
@@ -19,6 +23,8 @@ function App() {
         <Route path="/*" element={<UserRouter />} />
         <Route path="/Restaurant/*" element={<RestaurantRouter />} />
         <Route path="/admin/*" element={<AdminRouter />} />
+
+        {/* <RazorpayComponent /> */}
 
 
                   {/* ADMIN

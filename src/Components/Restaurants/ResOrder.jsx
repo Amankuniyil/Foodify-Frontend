@@ -10,6 +10,7 @@ import api from '../../api/axiosConfig';
 import ResSideBar from '../Layout/ResSideBar';
 import { useParams } from 'react-router-dom';
 
+
 import { useSelector } from 'react-redux';
 import Razorpay from 'react-razorpay';
 
@@ -134,23 +135,82 @@ const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
 const host = window.location.host;
 const path = '/restaurant/';
 
-const socket = new WebSocket(`${protocol}${host}${path}`);
+// const socket = new WebSocket(`${protocol}${host}${path}`);
 
-socket.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    console.log('WebSocket message received:', data.message);
-    // Handle the WebSocket message as needed in your React component
-};
+// socket.onmessage = (event) => {
+//     const data = JSON.parse(event.data);
+//     console.log('WebSocket message received:', data.message);
+//     // Handle the WebSocket message as needed in your React component
+// };
+
+
+// Your React component
+
+// Your React component
+
+// const restaurantID = 5;
+// const channelId = Math.floor(Math.random() * 10000);
+// const socket = new WebSocket(`ws://localhost:8000/ws/restaurant/${channelId}/${restaurantID}/`);
+
+// socket.onmessage = (event) => {
+//     const data = JSON.parse(event.data);
+//     console.log('WebSocket message received:', data.message);
+//     // Handle the WebSocket message as needed in your React component
+// };
+
+// const senderId = 5;
+// const recipientId = 5;
+// const channelId = Math.floor(Math.random() * 10000);
+// const socket = new WebSocket(`ws://127.0.0.1:8000/ws/restaurant/${senderId}/${recipientId}/`);
+
+// socket.onmessage = (event) => {
+//     const data = JSON.parse(event.data);
+//     console.log('WebSocket message received:', data.message);
+//     // Handle the WebSocket message as needed in your React component
+// };
 
 
 
-// const socket = new WebSocket(`ws://localhost:8000/ws/order/${order.id}/restaurant/${restaurant.id}/`);
 
-socket.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    console.log('WebSocket message received:', data.message);
-    // Handle the WebSocket message as needed in your React component
-};
+// useEffect(() => {
+//   // WebSocket connection URL
+//   const websocketURL = 'ws://localhost:8000/ws/restaurant/';
+
+//   // Create a new WebSocket instance
+//   const socket = new WebSocket(websocketURL);
+
+//   // Event handler for when the connection is established
+//   socket.onopen = () => {
+//     console.log('WebSocket connection opened');
+//   };
+
+//   // Event handler for when a message is received from the server
+//   socket.onmessage = (event) => {
+//     const data = JSON.parse(event.data);
+//     console.log('WebSocket message received:', data.message);
+//     // Handle the WebSocket message as needed in your React component
+//   };
+
+//   // Event handler for when the connection is closed
+//   socket.onclose = (event) => {
+//     console.log('WebSocket connection closed:', event);
+//   };
+
+//   // Cleanup the WebSocket connection when the component unmounts
+//   return () => {
+//     socket.close();
+//     console.log('WebSocket connection closed on component unmount');
+//   };
+// }, []); // Empty dependency array ensures that the effect runs only once
+
+
+
+
+
+
+
+
+
 
 
 
@@ -158,6 +218,7 @@ socket.onmessage = (event) => {
     <div>
         <ResSideBar />
       <br /><br /><br />
+
       <h1 className="mb-10 text-center text-blue-900 text-2xl font-bold">Restaurant Orders</h1>
 
       {isLoading && <p>Loading...</p>}
@@ -177,7 +238,7 @@ socket.onmessage = (event) => {
               <div className="mb-2">
                 
                 <p className="text-gray-700 text-lg">
-                  {order.user.first_name} {order.user.last_name}-{order.user.phone_number}
+                {order.user.id}--{order.user.first_name} {order.user.last_name}-{order.user.phone_number}
                 </p>
                 <br />
                 <p className="text-gray-700">
@@ -212,6 +273,9 @@ socket.onmessage = (event) => {
                   <p className="mb-1 text-lg font-bold">{order.order_total}</p>
                   <p className="text-sm text-gray-700">including VAT</p>
                 </div>
+                {/* <Link to={`/Restaurant/Reschat/57`} className="text-xl font-medium text-indigo-500">
+  Message
+</Link> */}
               </div>
               <button
                 className="mt-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
@@ -219,7 +283,7 @@ socket.onmessage = (event) => {
               >
                 Change Status
               </button>
-              <Link to={`/orderdetail/${order.id}`}>
+              <Link to={`/Restaurant/orderdetail/${order.id}`}>
                 <button
                   className="mt-4 w-40 ml-5 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                 >

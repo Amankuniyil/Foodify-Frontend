@@ -144,7 +144,11 @@ function ResMenu() {
               <div className=" w-100 h-40 ">
                 <h2 className="text-3xl font-bold mb-2">{profile.restaurant_name}</h2>
                 <h2 className="text-xl font-semibold text-gray-700 mb-2">{profile.about}</h2>
+                <h2 className="text-xl font-semibold text-gray-700 mb-2">ID={profile.restaurant}</h2>
                 <h2 className="text-lg text-gray-500">{profile.address}</h2>
+                <Link to={`/chat/${profile.restaurant}`} className="text-xl font-medium text-indigo-500">
+  Message
+</Link>
               </div>
               </CardBody>
             </div>
@@ -185,6 +189,8 @@ function ResMenu() {
         </CardBody>
         <button className='bg-gray-300'>{renderFoodCard(foodItem)}</button>
       </Card>
+
+ 
     </div>
   ))}
 </div>

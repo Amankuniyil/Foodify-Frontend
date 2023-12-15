@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ResChart from '../Layout/ResChart';
 import { Link, NavLink, useLocation ,useNavigate} from 'react-router-dom';
 import './Home.css';
+import Notify from './Notify';
 
 
 function RestaurantHome() {
@@ -19,7 +20,26 @@ function RestaurantHome() {
    const [isRegistered, setIsRegistered] = useState(false);
    const navigate = useNavigate();
 
-   useEffect(() => {
+   // useEffect(() => {
+   //    api.get('restaurant/get-res-profile/')
+   //      .then((response) => {
+   //        const data = response.data;
+   //        setIsRegistered(data.is_registered);
+   //        if (!data.is_registered) {
+   //          // Redirect to the registration page if not registered
+   //          navigate('/Restaurant/pending');
+   //        }
+   //      })
+   //      .catch((error) => {
+   //        // Handle error as needed
+   //        console.error('Error checking registration:', error);
+   //        // Optionally show an error message to the user
+   //        // toast.error('Error checking registration. Please try again.');
+   //      });
+   //  }, [navigate]);
+
+
+    useEffect(() => {
       api.get('restaurant/get-res-profile/')
         .then((response) => {
           const data = response.data;
@@ -87,6 +107,7 @@ function RestaurantHome() {
 
 <div>
    <nav class="bg-white border-b border-gray-200 fixed z-30 w-full">
+   <Notify/>
       <div class="px-3 py-3 lg:px-5 lg:pl-3">
          <div class="flex items-center justify-between">
             <div class="flex items-center justify-start">
@@ -145,6 +166,15 @@ function RestaurantHome() {
                            <span class="ml-3">Dashboard</span>
                         </a>
                      </li>
+                     
+
+                     {/* <Link to="/Restaurant/addfood" className="text-base text-dark font-normal p-2 hover:bg-gray-100 flex items-center">
+                     <svg class="w-6 h-6 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                           </svg>
+
+<a href="#" class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Orders</a>
+</Link> */}
                      <li>
                         <a href="#" target="_blank" class="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
                            <svg class="w-6 h-6 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -156,8 +186,16 @@ function RestaurantHome() {
                      
                         </a>
                      </li>
+                      {/* <Link to="/Restaurant/resorders" className="text-base text-dark font-normal p-2 hover:bg-gray-100 flex items-center">
+                      <svg class="w-6 h-6 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"></path>
+                              <path d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path>
+                           </svg>
+
+<a  class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6">Orders</a>
+</Link> */}
                      <li>
-                        <a href="#" target="_blank" class="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
+                        <a  target="_blank" class="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
                            <svg class="w-6 h-6 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                               <path d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"></path>
                               <path d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path>
@@ -169,7 +207,7 @@ function RestaurantHome() {
                         </a>
                      </li>
                      <li>
-                        <a href="#" class="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
+                        <a  class="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
                            <svg class="w-6 h-6 text-gray-500 flex-shrink-0 group-hover:text-gray-900 transition duration-75" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
                            </svg>

@@ -1,96 +1,88 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import ResFooter from '../Layout/ResFooter';
+import { useParams } from 'react-router-dom';
+import Loading from '../Layout/Loading';
+import api from '../../api/axiosConfig';
+import ResSideBar from '../Layout/ResSideBar';
+import { Link, useNavigate } from 'react-router-dom';
+import Notify from './Notify';
 
-function OrderDetail({ match }) {
-  const [order, setOrder] = useState({});
+function OrderDetail() {
+  const { orderId } = useParams(); // Get the order ID from the URL
+  const [orderItems, setOrderItems] = useState([]);
+
   const [isLoading, setIsLoading] = useState(true);
-
-
-  const [restaurantProfileId, setRestaurantProfileId] = useState(null);
-  const [orders, setOrders] = useState([]);
+  const [orderDetails, setOrderDetails] = useState({});
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    async function fetchOrderDetails() {
+      setIsLoading(true);
+      try {
+        const response = await api.get(`orders/detail/${orderId}`);
+        setOrderDetails(response.data); // Update with the actual API response structure
+        setError(null); // Clear any previous errors on success
+      } catch (error) {
+        console.error('Error fetching order details', error);
+        setError('Error fetching order details');
+      } finally {
+        setIsLoading(false);
+      }
+    }
 
-  const [socket, setSocket] = useState(null);
-
+    fetchOrderDetails();
+  }, [orderId]);
 
   useEffect(() => {
-    const orderId = match.params.orderId; // Extract the order ID from the URL
-    const apiUrl = `orders/order-detail/${orderId}/`;
+    async function fetchOrderItems() {
+      try {
+        const response = await api.get(`orders/items/${orderId}`); // Replace with the actual API endpoint for order items
+        setOrderItems(response.data);
+      } catch (error) {
+        console.error('Error fetching order items', error);
+        // You can set an error state here if needed
+      }
+    }
 
-    axios
-      .get(apiUrl)
-      .then((response) => {
- 
-        setOrders(response.data.orders);
-      })
-      .catch((err) => {
-        setError(err.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+    fetchOrderItems();
+  }, [orderId]); // Fetch order items whenever the order ID changes
+
+
 
   return (
     <div>
-        <h3>hello</h3>
-      <h1 className="text-2xl font-bold mb-4">Order</h1>
+      <ResSideBar />
+      <h1 className="mb-10 text-center text-2xl font-bold">Order -Details</h1>
+      
 
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <Loading />}
 
-      {error && <p>Error: {error}</p>}
+      {error && <p className="text-red-500">Error: {error}</p>}
 
       {!isLoading && !error && (
-        <form>
-          <div>
-            <label htmlFor="orderNumber">Order Number</label>
-            <input
-              type="text"
-              id="orderNumber"
-              name="orderNumber"
-              value={order.orderNumber}
-              readOnly
-            />
-          </div>
+        <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md">
+          <h2 className="text-xl font-bold mb-2">Order Details</h2>
+          <p>Order ID: { orderDetails.user }</p>
+          <p>Order Total: {orderDetails.user}</p> 
+          {/* <Link to={`/chat${orderDetails.user.first_name}`} className="text-xl font-medium text-indigo-500">
+  Message
+</Link> */}
           
-
-          <div>
-            <label htmlFor="totalAmount">Total Amount</label>
-            <input
-              type="text"
-              id="totalAmount"
-              name="totalAmount"
-              value={order.totalAmount}
-              readOnly
-            />
-          </div>
-
-          <div>
-            <label htmlFor="customerName">Customer Name</label>
-            <input
-              type="text"
-              id="customerName"
-              name="customerName"
-              value={`${order.user.first_name} ${order.user.last_name}`}
-              readOnly
-            />
-          </div>
-
-          <div>
-            <label htmlFor="orderStatus">Order Status</label>
-            <input
-              type="text"
-              id="orderStatus"
-              name="orderStatus"
-              value={order.status}
-              readOnly
-            />
-          </div>
-        </form>
+          {/* Render other order details here */}
+        </div>
+        
       )}
-       <ResFooter/>
+      <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md">
+        <h2 className="text-xl font-bold mb-2">Order Items</h2>
+        <ul>
+          {orderItems.map((item) => (
+            <li key={item.id}>
+                
+                {item.id}-{item.food_item} - Quantity: {item.quantity} - Price: {item.price}
+            </li>
+          ))}
+        </ul>
+      </div>
+
     </div>
   );
 }
