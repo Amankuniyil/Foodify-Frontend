@@ -31,7 +31,7 @@ function App() {
                   {isAdmin ? (
             <Route path="/admin/*" element={<AdminRouter />} />
           ) : (
-            <Route path="/admin/*" element={<Navigate to="/login" />} />
+            <Route path="/admin/*"  element={<Navigate to="/login" />} />
           )}
        */}
 
