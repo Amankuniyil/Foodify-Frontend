@@ -25,13 +25,15 @@ const Notify = () => {
   useEffect(() => {
     // setup chat socket
     // const notifySocket = new WebSocket(`ws://127.0.0.1:8000/ws/notify/${Resid}/`);
-    const notifySocket = new WebSocket(`ws://foodify-frontend-five.vercel.app/ws/notify/${Resid}/`);
-    // const notifySocket = new WebSocket(`wss://foodify-frontend-five.vercel.app/ws/notify/${Resid}/`);
+    // const notifySocket = new WebSocket(`wss://127.0.0.1:8000/ws/notify/${Resid}/`);
+
+    // const notifySocket = new WebSocket(`ws://foodify-frontend-five.vercel.app/ws/notify/${Resid}/`);
+    const notifySocket = new WebSocket(`wss://foodify-frontend-five.vercel.app/ws/notify/${Resid}/`);
 
 
     
 
-    // on socket open
+    //  on socket open
     notifySocket.onopen = () => {
       console.log('Socket successfully connected.');
     };
