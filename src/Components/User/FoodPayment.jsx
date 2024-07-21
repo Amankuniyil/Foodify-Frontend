@@ -61,7 +61,7 @@ function FoodPayment() {
         console.log(order.id)
         console.log(order.amount)
         var options={
-            key:"rzp_test_fyG9E6kHVtWCYc",
+            key:"rzp_test_sKb0zS2LDovc4J",
             currency:"INR",
             name:"foodify",
             description:"for testing",
